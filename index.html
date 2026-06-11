@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lunch Date?</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ffd6e7,#ffeef5);
+    font-family:Arial, sans-serif;
+    overflow:hidden;
+}
+
+.container{
+    text-align:center;
+    background:white;
+    padding:40px;
+    border-radius:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.15);
+}
+
+h1{
+    color:#ff4d88;
+    margin-bottom:10px;
+}
+
+p{
+    font-size:18px;
+    color:#555;
+}
+
+.buttons{
+    margin-top:30px;
+}
+
+button{
+    padding:12px 28px;
+    font-size:18px;
+    border:none;
+    border-radius:50px;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+#yesBtn{
+    background:#ff4d88;
+    color:white;
+    margin-right:15px;
+}
+
+#yesBtn:hover{
+    transform:scale(1.08);
+}
+
+#noBtn{
+    background:#ddd;
+    color:#333;
+    position:absolute;
+}
+
+#success{
+    display:none;
+    font-size:24px;
+    color:#ff4d88;
+    margin-top:20px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Hi Eqa ❤️</h1>
+
+```
+<p>
+    Amir would like to ask you something...
+</p>
+
+<p>
+    Would you like to have lunch with me at IKEA<br>
+    on <b>19 June 2026</b> at <b>1:00 PM</b>? 🥺
+</p>
+
+<div class="buttons">
+    <button id="yesBtn">YES 💕</button>
+    <button id="noBtn">NO 😏</button>
+</div>
+
+<div id="success">
+    YAYYY!! ❤️<br><br>
+    See you at IKEA on 19/6/26 at 1:00 PM! 🍝✨
+</div>
+```
+
+</div>
+
+<script>
+
+const noBtn = document.getElementById("noBtn");
+
+function moveButton() {
+    const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+    const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+}
+
+noBtn.addEventListener("mouseover", moveButton);
+noBtn.addEventListener("click", moveButton);
+
+document.getElementById("yesBtn").addEventListener("click", () => {
+    document.querySelector(".buttons").style.display = "none";
+    document.getElementById("success").style.display = "block";
+});
+
+moveButton();
+
+</script>
+
+</body>
+</html>
