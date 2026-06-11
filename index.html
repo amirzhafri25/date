@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lunch Date ❤️</title>
+<title>For Eqa ❤️</title>
 
 <style>
 *{
@@ -15,11 +15,11 @@
 
 body{
     font-family:Arial, sans-serif;
+    background:linear-gradient(135deg,#ffd6e7,#ffeef5);
     height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    background:linear-gradient(135deg,#ffd6e7,#ffeef5);
     overflow:hidden;
 }
 
@@ -29,33 +29,36 @@ body{
     border-radius:25px;
     text-align:center;
     box-shadow:0 10px 30px rgba(0,0,0,0.15);
-    max-width:500px;
-    z-index:10;
+    max-width:550px;
+    width:90%;
 }
 
-h1{
+h1,h2,h3{
     color:#ff4d88;
-    margin-bottom:15px;
 }
 
 p{
     color:#555;
+    margin:10px 0;
     line-height:1.6;
-    margin-bottom:10px;
 }
 
-.buttons{
-    margin-top:25px;
+button{
+    border:none;
+    border-radius:50px;
+    padding:15px 35px;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.primary{
+    background:#ff4d88;
+    color:white;
 }
 
 #yesBtn{
     background:#ff4d88;
     color:white;
-    border:none;
-    padding:15px 35px;
-    border-radius:50px;
-    font-size:18px;
-    cursor:pointer;
     transition:all 0.3s ease;
     position:relative;
     z-index:999;
@@ -63,19 +66,18 @@ p{
 
 #noBtn{
     background:#ddd;
-    color:#333;
-    border:none;
-    padding:15px 35px;
-    border-radius:50px;
-    font-size:18px;
-    cursor:pointer;
     position:absolute;
 }
 
-#success{
+.hidden{
     display:none;
-    margin-top:20px;
-    color:#ff4d88;
+}
+
+#verificationText{
+    white-space:pre-line;
+    text-align:left;
+    max-width:350px;
+    margin:0 auto;
 }
 </style>
 
@@ -86,39 +88,179 @@ p{
 <div class="card">
 
 ```
-<h1>Hi Eqa ❤️</h1>
+<!-- SCREEN 1 -->
+<div id="screen1">
 
-<p>Amir has something important to ask...</p>
+    <h1>❤️ Welcome ❤️</h1>
 
-<p>
-    Would you like to have lunch with me at IKEA? 🥺
-</p>
+    <br>
 
-<p>
-    📅 19 June 2026<br>
-    🕐 1:00 PM
-</p>
+    <p>Before proceeding...</p>
 
-<div class="buttons">
-    <button id="yesBtn">YES ❤️</button>
-    <button id="noBtn">NO 😏</button>
+    <p><strong>Who are you?</strong></p>
+
+    <br>
+
+    <button class="primary" id="eqaBtn">
+        EQA ❤️
+    </button>
+
 </div>
 
-<div id="success"></div>
+<!-- SCREEN 2 -->
+<div id="screen2" class="hidden">
+
+    <h2>Identity Verification</h2>
+
+    <br>
+
+    <div id="verificationText"></div>
+
+</div>
+
+<!-- SCREEN 3 -->
+<div id="screen3" class="hidden">
+
+    <h1>❤️ Lunch Invitation ❤️</h1>
+
+    <p>
+        Hi Eqa,
+    </p>
+
+    <p>
+        Would you like to have lunch with Amir at IKEA? 🥺
+    </p>
+
+    <p>
+        📅 19 June 2026<br>
+        🕐 1:00 PM
+    </p>
+
+    <div style="margin-top:25px;">
+        <button id="yesBtn">YES ❤️</button>
+        <button id="noBtn">NO 😏</button>
+    </div>
+
+</div>
+
+<!-- SCREEN 4 -->
+<div id="screen4" class="hidden">
+
+    <h1>🎉 YAYYYY! 🎉</h1>
+
+    <br>
+
+    <h2>❤️ Lunch Date Confirmed ❤️</h2>
+
+    <br>
+
+    <p>
+        📍 IKEA<br>
+        📅 19 June 2026<br>
+        🕐 1:00 PM
+    </p>
+
+    <br>
+
+    <p>
+        Mission Objectives:
+    </p>
+
+    <p>
+        ✅ Eat<br>
+        ✅ Walk around IKEA<br>
+        ✅ Spend time together<br>
+        ✅ Make Amir happy ❤️
+    </p>
+
+    <br>
+
+    <h3>🍝 See you there, Eqa!</h3>
+
+</div>
 ```
 
 </div>
 
 <script>
 
+const screen1 = document.getElementById("screen1");
+const screen2 = document.getElementById("screen2");
+const screen3 = document.getElementById("screen3");
+const screen4 = document.getElementById("screen4");
+
+const eqaBtn = document.getElementById("eqaBtn");
+const verificationText = document.getElementById("verificationText");
+
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
-const success = document.getElementById("success");
 
-let size = 1;
+let yesScale = 1;
 
-// place NO button initially
-moveNo();
+const noMessages = [
+    "NO 😏",
+    "Are you sure? 🥺",
+    "Really sure? 😭",
+    "But IKEA though 🍝",
+    "Amir already excited ❤️",
+    "Last chance 😭",
+    "The meatballs will be sad 🥲"
+];
+
+let msgIndex = 0;
+
+eqaBtn.addEventListener("click", () => {
+
+    screen1.classList.add("hidden");
+    screen2.classList.remove("hidden");
+
+    const lines = [
+        "🔍 Verifying identity...",
+        "",
+        "██████████ 100%",
+        "",
+        "Name: Eqa",
+        "Status: Verified ✅",
+        "Cute Level: 100%",
+        "Smile Rating: 100%",
+        "Sweetness: 100%",
+        "",
+        "Calculating compatibility with Amir...",
+        "",
+        "██████████ 100%",
+        "",
+        "Result:",
+        "❤️ PERFECT MATCH FOR A LUNCH DATE ❤️",
+        "",
+        "Access Granted"
+    ];
+
+    let i = 0;
+
+    const interval = setInterval(() => {
+
+        verificationText.innerHTML += lines[i] + "<br>";
+
+        i++;
+
+        if(i >= lines.length){
+
+            clearInterval(interval);
+
+            setTimeout(() => {
+
+                screen2.classList.add("hidden");
+                screen3.classList.remove("hidden");
+
+                moveNo();
+
+            },1500);
+
+        }
+
+    },400);
+
+});
 
 function moveNo(){
 
@@ -128,84 +270,42 @@ function moveNo(){
     noBtn.style.left = Math.random() * maxX + "px";
     noBtn.style.top = Math.random() * maxY + "px";
 
-    // YES gets bigger EVERY TIME
-    size += 0.5;
+    yesScale += 0.5;
 
-    yesBtn.style.transform = `scale(${size})`;
+    yesBtn.style.transform = `scale(${yesScale})`;
 
-    if(size > 2){
-        yesBtn.innerHTML = "YES ❤️❤️";
+    if(msgIndex < noMessages.length - 1){
+        msgIndex++;
     }
 
-    if(size > 4){
-        yesBtn.innerHTML = "YES ❤️❤️❤️";
-    }
+    noBtn.innerHTML = noMessages[msgIndex];
 
-    if(size > 6){
-        yesBtn.innerHTML = "CLICK ME 😘";
-    }
-
-    if(size > 8){
-        yesBtn.innerHTML = "JUST SAY YES 😭❤️";
-    }
-
-    // Eventually YES takes over the screen
-    if(size > 10){
+    if(yesScale > 10){
 
         yesBtn.style.position = "fixed";
         yesBtn.style.left = "0";
         yesBtn.style.top = "0";
         yesBtn.style.width = "100vw";
         yesBtn.style.height = "100vh";
-        yesBtn.style.borderRadius = "0";
         yesBtn.style.fontSize = "60px";
-        yesBtn.style.transform = "none";
+        yesBtn.style.borderRadius = "0";
 
         noBtn.style.display = "none";
     }
 }
 
-// Desktop
 noBtn.addEventListener("mouseenter", moveNo);
 
-// Mobile
 noBtn.addEventListener("touchstart", function(e){
     e.preventDefault();
     moveNo();
 });
 
-yesBtn.addEventListener("click", function(){
+yesBtn.addEventListener("click", () => {
 
-    document.body.innerHTML = `
-        <div style="
-            height:100vh;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            flex-direction:column;
-            background:linear-gradient(135deg,#ffd6e7,#ffeef5);
-            font-family:Arial;
-            text-align:center;
-        ">
-            <h1 style="color:#ff4d88;">
-                🎉 YAYYYY EQA SAID YES! 🎉
-            </h1>
+    screen3.classList.add("hidden");
+    screen4.classList.remove("hidden");
 
-            <h2>
-                ❤️ Lunch Date Confirmed ❤️
-            </h2>
-
-            <p style="font-size:24px;">
-                📍 IKEA<br>
-                📅 19 June 2026<br>
-                🕐 1:00 PM
-            </p>
-
-            <h3>
-                🍝 See you there, Eqa!
-            </h3>
-        </div>
-    `;
 });
 
 </script>
